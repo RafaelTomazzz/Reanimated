@@ -2,21 +2,25 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import "../../global.css";
 import Animated from 'react-native-reanimated';
-import { useSharedValue } from 'react-native-reanimated';
+import { useSharedValue, withSpring } from 'react-native-reanimated';
 
 export default function App() {
-  const width = useSharedValue(100)
+  const width = useSharedValue(100);
+
+  const handlePress = () => {
+    width.value = withSpring(Math.random() * 100 + 50);
+  };
 
   return (
-    <View>
+    <View style={{ flex: 1, alignItems: 'center' }}>
       <Animated.View
         style={{
           width,
           height: 100,
-          backgroundColor: 'violet'
-        }}  
+          backgroundColor: 'violet',
+        }}
       />
-      <Button title='Clique aqui'/>
+      <Button onPress={handlePress} title="Click me" />
     </View>
   );
 }
