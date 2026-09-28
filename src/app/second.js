@@ -34,8 +34,8 @@ export default function Second() {
         <Button className='mt-4' onPress={handlePress} title="Click me" />
         </View>
     
-        <View style={styles.container}>
-            <Svg className='flex items-center justify-center'>
+        <View className='flex items-center justify-center' style={styles.container}>
+            <Svg >
                 <AnimatedCircle 
                     cx="50" 
                     cy="50" 
@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
   },
   container: {
-    padding: 20 
+    padding: 20,
+    width: 1000
   }
 })
 
