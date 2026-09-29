@@ -18,9 +18,10 @@ import ThirdSlide from "./slides/third";
 import FourthSlide from "./slides/fourth";
 import FifthSlide from "./slides/fifth";
 import SixthSlide from "./slides/sixth";
+import Seventh from "./slides/seventh";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-const slides = [IndexSlide, FirstSlide, SecondSlide, ThirdSlide, FourthSlide, FifthSlide, SixthSlide];
+const slides = [IndexSlide, FirstSlide, SecondSlide, ThirdSlide, FourthSlide, FifthSlide, SixthSlide, Seventh];
 
 function AnimatedPageIndicator({ active, onPress }) {
     const progress = useSharedValue(active ? 1 : 0);
@@ -68,7 +69,7 @@ export default function SlideLayout() {
                         <Pressable
                             style={[styles.navigationButton, styles.previousButton]}
                             onPress={() => setActivePage((currentPage) => Math.max(0, currentPage - 1))}>
-                            <Text selectable={false} style={styles.previousButtonText}>← Anterior</Text>
+                            <Text selectable={false} style={styles.previousButtonText} className="font-poppins">← Anterior</Text>
                         </Pressable>
 
                         <View style={styles.indicators}>
@@ -84,7 +85,7 @@ export default function SlideLayout() {
                         <Pressable
                             style={[styles.navigationButton, styles.nextButton]}
                             onPress={() => setActivePage((currentPage) => Math.min(slides.length - 1, currentPage + 1))}>
-                            <Text selectable={false} style={styles.nextButtonText}>Próximo →</Text>
+                            <Text selectable={false} style={styles.nextButtonText} className="font-poppins">Próximo →</Text>
                         </Pressable>
                     </View>
                 </View>

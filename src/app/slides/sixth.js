@@ -1,110 +1,103 @@
-import 'react-native-gesture-handler';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import Animated, {
-    useAnimatedStyle,
     useSharedValue,
     withTiming,
-    clamp,
-    withDecay
+    withRepeat,
+    useAnimatedStyle,
+    withSequence,
 } from 'react-native-reanimated';
-// highlight-start
-import {
-    Gesture,
-    GestureDetector,
-    GestureHandlerRootView,
-} from 'react-native-gesture-handler';
-import { useState } from 'react';
-
+import { View, Button, StyleSheet, Text } from 'react-native';
+import React from 'react';
+import CodePreview from '../components/CodePreview';
+import Card from '../components/Card';
 
 export default function Sixth() {
-    const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-    const pressed = useSharedValue(false);
+    const offset = useSharedValue(0);
 
-    const tap = Gesture.Tap()
-        .onBegin(() => {
-            pressed.value = true;
-        })
-        .onFinalize(() => {
-            pressed.value = false;
-        });
-
-    const animatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: pressed.value ? '#FFE04B' : '#B58DF1',
-        transform: [{ scale: pressed.value ? 1.2 : 1 }],
+    const style = useAnimatedStyle(() => ({
+        transform: [{ translateX: offset.value }],
     }));
 
-    const position = useSharedValue({ x: 0, y: 0 })
-    const pressedPad = useSharedValue(1)
+    const OFFSET = 40;
+    const TIME = 250;
 
-    const panSize = 120;
+    const handlePress = () => {
+        offset.value = withSequence(
+            // start from -OFFSET
+            withTiming(-OFFSET, { duration: TIME / 2 }),
+            // shake between -OFFSET and OFFSET 5 times
+            withRepeat(withTiming(OFFSET, { duration: TIME }), 5, true),
+            // go back to 0 at the end
+            withTiming(0, { duration: TIME / 2 })
+        );
+    };
 
-    const pan = Gesture.Pan()
-        .onUpdate((e) => {
-            const maxX = (containerSize.width - panSize) / 2;
-            const maxY = (containerSize.height - panSize) / 2;
+    const jsCode = `const offset = useSharedValue(0);
+    
+const style = useAnimatedStyle(() => ({
+    transform: [{ translateX: offset.value }],
+}));
 
-            position.value = {
-                x: clamp(e.translationX, -maxX, maxX),
-                y: clamp(e.translationY, -maxY, maxY),
-            }
-            const distance = Math.sqrt(e.translationX ** 2 + e.translationY ** 2);
-            pressedPad.value = 1 + distance / 1000;
-        })
-        .onFinalize((e) => {
-            const maxX = (containerSize.width - panSize) / 2;
-            const maxY = (containerSize.height - panSize) / 2;
+const handlePress = () => {
+    offset.value = withSequence(
+        withTiming(-OFFSET, { duration: TIME / 2 }),
+        withRepeat(withTiming(OFFSET, { duration: TIME }), 5, true), 
+        withTiming(0, { duration: TIME / 2 })
+    );
+};
 
-            position.value = {
-                x: withTiming(0),
-                y: withTiming(0)
-            };
-            pressedPad.value = withTiming(1)
-        });
+//true significa reverse: a animação deve ser executada alternadamente no sentido normal e no sentido inverso
 
-    const animatedStylesPan = useAnimatedStyle(() => ({
-        transform: [
-            { translateX: position.value.x },
-            { translateY: position.value.y },
-            { scale: pressedPad.value }]
-    }))
+return (
+    <View style={styles.container}>
+        <Animated.View style={[styles.box, style]}/>
+        <Button title="shake" onPress={handlePress} />
+    </View>
+);`
 
     return (
-                <GestureHandlerRootView style={styles.container}>
-                <View style={styles.container}>
-                    {/* highlight-next-line */}
+        <View className="flex-1">
+            <View className="mb-12">
+                <Text className="text-white font-poppins-semibold text-5xl block">withRepeat e withSequence</Text>
+            </View>
 
-                    <GestureDetector gesture={tap}>
-                        <Animated.View style={[styles.circle, animatedStyles]} />
+            <View className='flex flex-1 flex-row gap-6'>
+                <View className="flex flex-col gap-6 flex-1">
+                    <Card>
+                        <Text className="text-xl text-white font-poppins-semibold mb-2">withRepeat</Text>
+                        <Text className="text-xl text-gray-400 font-poppins">Método permite que você repita uma animação qunatas vezes quiser, ou infinitamente.</Text>
+                    </Card>
 
-                        {/* highlight-next-line */}
-                    </GestureDetector>
+                    <Card>
+                        <Text className="text-xl text-white font-poppins-semibold mb-2">withSequence</Text>
+                        <Text className="text-xl text-gray-400 font-poppins">Método que tem a função de executar uma os mais animações em sequência.</Text>
+                    </Card>
                 </View>
-                <View style={styles.container}
-                    onLayout={(e) => {
-                        const { width, height } = e.nativeEvent.layout;
-                        setContainerSize({ width, height });
-                    }}>
-                    <GestureDetector gesture={pan}>
-                        <Animated.View style={[styles.circle, animatedStylesPan]} />
-                    </GestureDetector>
+
+                <View className="flex flex-col gap-6 flex-1">
+                    <CodePreview jsCode={jsCode}>
+                        <View className="flex align-center justify-center gap-4">
+                            <Animated.View style={[styles.box, style]}/>
+                        </View>
+                        <Button title="shake" onPress={handlePress} />
+                    </CodePreview>
                 </View>
-            </GestureHandlerRootView>
+            </View>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        height: '100%',
-        width: '100%'
+        justifyContent: 'center'
     },
-    circle: {
-        height: 120,
-        width: 120,
-        borderRadius: 500,
-        backgroundColor: '#B58DF1'
+    box: {
+        width: 100,
+        height: 100,
+        margin: 20,
+        borderRadius: 15,
+        backgroundColor: 'rgb(14, 212, 246)',
     },
 });

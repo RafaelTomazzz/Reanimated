@@ -9,7 +9,7 @@ const tabs = [
     { id: 'js', label: 'JS' },
 ];
 
-export default function CodePreview({ children, jsCode = '', onReset }) {
+export default function CodePreview({ children, jsCode = '' }) {
     const [activeTab, setActiveTab] = useState('preview');
     const [copied, setCopied] = useState(false);
     const [fontsLoaded] = useFonts({ JetBrainsMono_400Regular });
@@ -66,7 +66,7 @@ export default function CodePreview({ children, jsCode = '', onReset }) {
                         style={styles.codeStage}
                         contentContainerStyle={styles.codeContent}
                     >
-                        <Text selectable style={styles.codeText}>{code}</Text>
+                        <Text selectable className="text-lg" style={styles.codeText}>{code}</Text>
                     </ScrollView>
                 )}
             </View>

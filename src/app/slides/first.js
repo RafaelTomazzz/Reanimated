@@ -20,7 +20,7 @@ export default function First() {
   return (
     <View className="flex-1">
       <View className="mb-12">
-        <Text className="text-primary font-poppins-semibold text-5xl block">O que é Reanimated?</Text>
+        <Text className="text-white font-poppins-semibold text-5xl block">O que é <Text className="text-primary">Reanimated</Text>?</Text>
       </View>
 
       <View className="flex-row gap-6">
