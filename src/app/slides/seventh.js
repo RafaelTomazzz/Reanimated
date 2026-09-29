@@ -174,7 +174,7 @@ return (
                     </Card>
                 </View>
 
-                <View className="flex flex-col gap-6 flex-1">
+                <View className="flex flex-col gap-2 flex-1">
                     <CodePreview jsCode={jsCodeTap}>
                         <View style={styles.container}>
                             <GestureDetector gesture={tap}>

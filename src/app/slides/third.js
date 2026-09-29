@@ -107,12 +107,12 @@ export default function Third() {
           </Card>
         </View>
 
-        <View className="flex flex-col gap-2 flex-1">
+        <View className="flex flex-col gap-1 flex-1">
           <CodePreview jsCode={jsCodeStyle}>
             <View style={styles.container}>
               <Animated.View style={[styles.box, animatedStyle]} />
             </View>
-            <Button className='mt-4' onPress={handlePress} title="Click me" />
+            <Button className='mt-4' onPress={handlePress} title="ANIMAR" />
           </CodePreview>
 
           <CodePreview jsCode={jsCodeProps}>
@@ -125,7 +125,7 @@ export default function Third() {
                   fill='rgb(14, 212, 246)'
                 />
               </Svg>
-              <Button className='mt-4' title="Click me" onPress={handleRadiusPress} />
+              <Button className='mt-4' title="ANIMAR" onPress={handleRadiusPress} />
             </View>
           </CodePreview>
 

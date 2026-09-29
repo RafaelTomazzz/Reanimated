@@ -74,7 +74,7 @@ return (
 const styles = StyleSheet.create({
   previewContent: {
     alignItems: 'center',
-    gap: 48,
+    gap: 16,
   },
   box: {
     height: 100,
