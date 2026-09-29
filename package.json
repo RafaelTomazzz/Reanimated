@@ -1,12 +1,17 @@
 {
   "name": "reanimated",
   "version": "1.0.0",
-  "main": "expo-router/entry",
+  "main": "index.js",
   "dependencies": {
+    "@expo-google-fonts/jetbrains-mono": "^0.4.1",
+    "@expo-google-fonts/poppins": "^0.4.1",
     "@expo/metro-runtime": "~57.0.15",
     "babel-preset-expo": "^57.0.11",
     "expo": "~57.0.21",
+    "expo-clipboard": "~57.0.2",
     "expo-constants": "~57.0.19",
+    "expo-font": "~57.0.4",
+    "expo-linear-gradient": "~57.0.2",
     "expo-linking": "~57.0.10",
     "expo-router": "~57.0.22",
     "expo-status-bar": "~57.0.1",

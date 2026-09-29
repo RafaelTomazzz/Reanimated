@@ -8,9 +8,9 @@ import Animated, {
   withRepeat,
 } from 'react-native-reanimated';
 
-const duration = 2000;
+const duration = 3000;
 
-export default function Third({ width = 1000 }) {
+export default function Fourth({ width = 1000 }) {
   const defaultAnim = useSharedValue(width / 2 - 160);
   const linear = useSharedValue(width / 2 - 160);
 
@@ -51,6 +51,7 @@ export default function Third({ width = 1000 }) {
         <Text style={styles.text}>linear</Text>
       </Animated.View>
     </View>
+    
   );
 }
 

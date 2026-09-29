@@ -17,7 +17,7 @@ import {
 import { useState } from 'react';
 
 
-export default function App() {
+export default function Sixth() {
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     const pressed = useSharedValue(false);
 
@@ -56,16 +56,8 @@ export default function App() {
             const maxY = (containerSize.height - panSize) / 2;
 
             position.value = {
-                x: withDecay({
-                    velocity: e.velocityX,
-                    rubberBandEffect: true,
-                    clamp: [-maxX, maxX],
-                }),
-                y: withDecay({
-                    velocity: e.velocityY, // também corrija aqui: era velocityX no seu código anterior
-                    rubberBandEffect: true,
-                    clamp: [-maxY, maxY],
-                }),
+                x: withTiming(0),
+                y: withTiming(0)
             };
             pressedPad.value = withTiming(1)
         });
@@ -78,26 +70,26 @@ export default function App() {
     }))
 
     return (
-        <GestureHandlerRootView style={styles.container}>
-            <View style={styles.container}>
-                {/* highlight-next-line */}
-
-                <GestureDetector gesture={tap}>
-                    <Animated.View style={[styles.circle, animatedStyles]} />
-
+                <GestureHandlerRootView style={styles.container}>
+                <View style={styles.container}>
                     {/* highlight-next-line */}
-                </GestureDetector>
-            </View>
-            <View style={styles.container}
-                onLayout={(e) => {
-                    const { width, height } = e.nativeEvent.layout;
-                    setContainerSize({ width, height });
-                }}>
-                <GestureDetector gesture={pan}>
-                    <Animated.View style={[styles.circle, animatedStylesPan]} />
-                </GestureDetector>
-            </View>
-        </GestureHandlerRootView>
+
+                    <GestureDetector gesture={tap}>
+                        <Animated.View style={[styles.circle, animatedStyles]} />
+
+                        {/* highlight-next-line */}
+                    </GestureDetector>
+                </View>
+                <View style={styles.container}
+                    onLayout={(e) => {
+                        const { width, height } = e.nativeEvent.layout;
+                        setContainerSize({ width, height });
+                    }}>
+                    <GestureDetector gesture={pan}>
+                        <Animated.View style={[styles.circle, animatedStylesPan]} />
+                    </GestureDetector>
+                </View>
+            </GestureHandlerRootView>
     );
 }
 

@@ -1,10 +1,8 @@
 import { View, Button, StyleSheet } from 'react-native';
 import Animated, { useSharedValue, withSpring, useAnimatedStyle, useAnimatedProps, withTiming } from 'react-native-reanimated';
-import "../../global.css";
 import { Circle, Svg } from 'react-native-svg';
-import { use } from 'react';
 
-export default function Second() {
+export default function Third() {
   const translateX = useSharedValue(0);
 
   const handlePress = () => {
@@ -28,23 +26,23 @@ export default function Second() {
   }
 
   return (
-    <View>
-        <View style={styles.container}>
+    <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         <Animated.View style={[styles.box, animatedStyle]} />
         <Button className='mt-4' onPress={handlePress} title="Click me" />
-        </View>
+      </View>
     
-        <View className='flex items-center justify-center' style={styles.container}>
-            <Svg >
-                <AnimatedCircle 
-                    cx="50" 
-                    cy="50" 
-                    animatedProps={animatedRadius}
-                    fill="blue" 
-                />
-            </Svg>
-            <Button className='mt-4' title="Click me" onPress={handleRadiusPress} />
-        </View>
+      <View className='flex items-center justify-center' style={styles.container}>
+          <Svg >
+              <AnimatedCircle 
+                  cx="50" 
+                  cy="50" 
+                  animatedProps={animatedRadius}
+                  fill="blue" 
+              />
+          </Svg>
+          <Button className='mt-4' title="Click me" onPress={handleRadiusPress} />
+      </View>
     </View>
   );
 

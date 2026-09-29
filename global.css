@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root{
+    --color-primary: 14 212 246;
+    --color-background: 14 21 38;
+}
